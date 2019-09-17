@@ -26,8 +26,21 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
         json: true
       }
       request.post(options, function(error, response, body) {
-        console.log(response.statusCode);
-        console.log(body);
+        if (response.statusCode == 200) {
+          // Saving the artifact
+          if (body.status == "success") {
+            fs.writeFile('/home/circleci/trakr_result.log', body.result.url, function(err){
+              console.log('Test URL saved');
+            })
+          }
+          check_status = function(screenshot_id) {
+            // Do the actual API call and get status back
+            console.log('executed the check_status ' + screenshot_id);
+          }
+          // Making sure the test completes (At least the screenshot is created)
+          // Request to Trakr in an interval (1 minute) to check the status
+          setTimeout(check_status, 1000 * 180, body.result.screenshot_created[0]);
+        }
       });
   });
 }
