@@ -16,7 +16,7 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
   // Report some type of failure back to the CI
   console.log('Please setup the TRAKR API TOKEN and PROJECT ID in the environment variable settings');
 } else {
-  build_url = 'https://trakr-project-' + PROJECT_ID + 'localtunnel.me';
+  build_url = 'https://trakr-project-' + PROJECT_ID + '.localtunnel.me';
   request_body = {
     'build_url': build_url,
     'environment': 'production'
