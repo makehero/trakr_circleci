@@ -1,4 +1,5 @@
 const request = require('request');
+const fs = require('fs');
 
 // Loading our environment variables
 const BASE_ENV = process.env.TRAKR_BASE_ENV || 'production';
