@@ -1,0 +1,38 @@
+version: "2.1"
+description: Jobs for triggering Trakr visual tests
+
+executors:
+  default:
+    docker:
+      - image: circleci/node:lts
+
+commands:
+  fetch_test:
+    description: Getting the test from repository
+    steps:
+      - run: sudo git clone https://github.com/makehero/trakr_circleci.git $HOME/trakr_circleci
+      - run: cd $HOME/trakr_circleci && sudo npm install
+  trigger_test:
+    description: Trigger a visual test on Trakr
+    parameters:
+      trakr_api_token:
+        description: TRAKR_API_TOKEN environment variable stored under your project settings
+        type: string
+        default: $TRAKR_API_TOKEN
+      trakr_project_id:
+        description: TRAKR_PROJECT_ID environment variable stored under your project settings
+        type: string
+        default: $TRAKR_PROJECT_ID
+      build_url:
+        description: The build URL, this should be a publically accessible URL Trakr can access.
+        type: string
+        default: https://trakr-project-$TRAKR_PROJECT_ID.localtunnel.me
+    steps:
+      - run: TRAKR_API_TOKEN=<< parameters.trakr_api_token >> TRAKR_PROJECT_ID=<< parameters.trakr_project_id >> BUILD_URL=<< parameters.build_url >> node $HOME/trakr_circleci/test.js
+
+jobs:
+  trakr_test:
+    executor: default
+    steps:
+      - fetch_test
+      - trigger_test

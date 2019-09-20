@@ -5,6 +5,7 @@ const fs = require('fs');
 const BASE_ENV = process.env.TRAKR_BASE_ENV || 'production';
 const API_TOKEN = process.env.TRAKR_API_TOKEN;
 const PROJECT_ID = process.env.TRAKR_PROJECT_ID;
+const BUILD_URL = process.env.BUILD_URL;
 
 // Additional constants
 const TRAKR_API = 'https://app.trakr.tech/api/v1/';
@@ -16,9 +17,8 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
   // Report some type of failure back to the CI
   console.log('Please setup the TRAKR API TOKEN and PROJECT ID in the environment variable settings');
 } else {
-  build_url = 'https://trakr-project-' + PROJECT_ID + '.localtunnel.me';
   request_body = {
-    'build_url': build_url,
+    'build_url': BUILD_URL,
     'environment': 'production'
   }
   options = {
@@ -30,6 +30,7 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
     json: true
   }
   // Creating the actual request for testing
+  // @todo: Wait for the tunnel to start
   request.post(options, function(error, response, body) {
     if (response.statusCode == 200) {
       // Saving the artifact
