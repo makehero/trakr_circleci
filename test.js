@@ -33,7 +33,7 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
     json: true
   }
 
-  console.log('Waiting for the test to start in ' + DELAY_START + 'seconds.');
+  console.log('Waiting for the test to start in ' + DELAY_START + ' seconds.');
 
   // Delaying the screenshot capturing until the tunnel is established if needed
   setTimeout(function() {

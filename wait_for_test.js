@@ -6,7 +6,7 @@ const WORKFLOW_ID = process.env.CIRCLE_WORKFLOW_ID; //provided by CircleCI
 
 // Additional constants
 const TRAKR_API = 'https://app.trakr.tech/api/v1/';
-const WAIT_FOR_SN = 6; // try to find the screenshot X times in an every 5 seconds
+const WAIT_FOR_SN = 12; // try to find the screenshot X times in an every 10 seconds
 const WAIT_FOR_COMPLETE = 60; // 60 minutes max wait time for the tunnel to be kept open
 
 if (API_TOKEN == undefined || PROJECT_ID == undefined) {
@@ -81,5 +81,5 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
     } else {
       findSN(options);
     }
-  }, 5000);
+  }, 1000 * 10);
 }
