@@ -33,6 +33,8 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
     json: true
   }
 
+  console.log('Waiting for the test to start in ' + DELAY_START + 'seconds.');
+
   // Delaying the screenshot capturing until the tunnel is established if needed
   setTimeout(function() {
     // We can always start the test when the build URL becomes available. However
@@ -84,5 +86,5 @@ if (API_TOKEN == undefined || PROJECT_ID == undefined) {
         }, 1000 * 60);
       }
     });
-  }, DELAY_START);
+  }, DELAY_START * 1000);
 }
