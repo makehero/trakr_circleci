@@ -23,12 +23,20 @@ commands:
         description: TRAKR_PROJECT_ID environment variable stored under your project settings
         type: string
         default: $TRAKR_PROJECT_ID
+      trakr_base_env:
+        description: The base environment to perform comparison test against, normally production or staging
+        type: string
+        default: production
+      delay_start:
+        description: Delaying the start of performing tests, this is mostly used to wait for a http tunnel to be established
+        type: integer
+        default: 0
       build_url:
         description: The build URL, this should be a publically accessible URL Trakr can access.
         type: string
         default: https://trakr-project-$TRAKR_PROJECT_ID.localtunnel.me
     steps:
-      - run: TRAKR_API_TOKEN=<< parameters.trakr_api_token >> TRAKR_PROJECT_ID=<< parameters.trakr_project_id >> BUILD_URL=<< parameters.build_url >> node $HOME/trakr_circleci/test.js
+      - run: TRAKR_API_TOKEN=<< parameters.trakr_api_token >> TRAKR_PROJECT_ID=<< parameters.trakr_project_id >> TRAKR_BASE_ENV=<< parameters.trakr_base_env >> BUILD_URL=<< parameters.build_url >> DELAY_START=<< parameters.delay_start >> node $HOME/trakr_circleci/test.js
 
 jobs:
   trakr_test:
